@@ -18,6 +18,9 @@ ffmpeg.exe
 model
 model/*
 
+audio
+audio/*
+
 .env
 
 raw_audio
