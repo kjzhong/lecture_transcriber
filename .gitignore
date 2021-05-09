@@ -32,6 +32,8 @@ raw_videos
 sample_videos
 */sample_videos/*
 
+out.wav
+
 model
 model/*
 
