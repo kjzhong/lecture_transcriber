@@ -15,6 +15,11 @@ archive
 ibm-credentials.env
 ffmpeg.exe
 
+model
+model/*
+
+.env
+
 raw_audio
 */raw_audio/*
 
