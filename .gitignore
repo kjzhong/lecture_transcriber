@@ -32,6 +32,9 @@ raw_videos
 sample_videos
 */sample_videos/*
 
+model
+model/*
+
 # IPython
 profile_default/
 ipython_config.py
