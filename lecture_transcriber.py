@@ -29,6 +29,7 @@ if __name__ == "__main__":
             completed = True
 
     if status == "Succeeded":
+        transcript_generator.get_transcription_files()
         transcript_generator.create_text_file()
     else:
         print("something has gone wrong")
