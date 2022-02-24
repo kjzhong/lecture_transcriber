@@ -9,7 +9,6 @@ from azure.storage.blob import (
     BlobSasPermissions,
 )
 
-import isodate
 from datetime import datetime, timedelta
 import json
 import requests
@@ -92,15 +91,15 @@ class DataStorage:
 
 
 class TranscriptGenerator:
+    headers = {
+        "accept": "application/json",
+        "Ocp-Apim-Subscription-Key": AZURE_SPEECH_API_KEY_1,
+    }
+
     def __init__(self, url):
         self.url = url
 
     def create_transcript(self):
-        # create authentication key for our transcription request
-        headers = {
-            "accept": "application/json",
-            "Ocp-Apim-Subscription-Key": AZURE_SPEECH_API_KEY_1,
-        }
 
         # create configuration parameters
         parameters = {
@@ -120,24 +119,29 @@ class TranscriptGenerator:
         request_url = "https://australiaeast.api.cognitive.microsoft.com/speechtotext/v3.0/transcriptions"
 
         # create a transcription request
-        r = requests.post(request_url, headers=headers, data=json.dumps(parameters))
+        r = requests.post(
+            request_url, headers=self.headers, data=json.dumps(parameters)
+        )
 
         # return transcript id
         transcript_id = r.json()["self"].split("/")[-1]
 
         self.transcript_id = transcript_id
 
+    def check_transcription_status(self):
+        # https://centralus.dev.cognitive.microsoft.com/docs/services/speech-to-text-api-v3-0/operations/GetTranscription
+
+        url = f"https://australiaeast.api.cognitive.microsoft.com/speechtotext/v3.0/transcriptions/{self.transcript_id}/"
+
+        res = requests.get(url, headers=self.headers)
+
+        return res.json()["status"]
+
     def get_transcription_files(self):
         url = f"https://australiaeast.api.cognitive.microsoft.com/speechtotext/v3.0/transcriptions/{self.transcript_id}/files"
 
-        # create authentication key for our transcription request
-        headers = {
-            "accept": "application/json",
-            "Ocp-Apim-Subscription-Key": AZURE_SPEECH_API_KEY_1,
-        }
-
         # this creates the transcript report and the transcription
-        res = requests.get(url, headers=headers).json()
+        res = requests.get(url, headers=self.headers).json()
 
         values = res["values"]
 
