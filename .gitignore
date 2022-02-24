@@ -22,6 +22,9 @@ audio
 audio/*
 audio/
 
+transcripts
+.transcripts/*
+
 .env
 
 raw_audio
