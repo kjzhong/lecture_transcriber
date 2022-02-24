@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     print(data_storage.blob_url)
 
-    transcript_generator = azure.TranscriptGenerator(data_storage.blob_url)
+    transcript_generator = azure.TranscriptGenerator(data_storage.blob_sas_url)
     transcript_generator.create_transcript()
 
     # track transcript
