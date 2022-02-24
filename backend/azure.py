@@ -68,9 +68,9 @@ class DataStorage:
     def generate_sas_url(self):
         sas_blob = self._generate_blob_sas()
 
-        blob_url = f"https://{AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/{self.container_name}/{self.file_name}?{sas_blob}"
+        blob_sas_url = f"https://{AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/{self.container_name}/{self.file_name}?{sas_blob}"
 
-        return blob_url
+        self.blob_sas_url = blob_sas_url
 
     # create a sas to use to request a transcript
     def _generate_blob_sas(self):
@@ -129,8 +129,6 @@ class TranscriptGenerator:
         self.transcript_id = transcript_id
 
     def check_transcription_status(self):
-        # https://centralus.dev.cognitive.microsoft.com/docs/services/speech-to-text-api-v3-0/operations/GetTranscription
-
         url = f"https://australiaeast.api.cognitive.microsoft.com/speechtotext/v3.0/transcriptions/{self.transcript_id}/"
 
         res = requests.get(url, headers=self.headers)
