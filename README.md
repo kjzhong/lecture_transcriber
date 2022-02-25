@@ -17,7 +17,12 @@ By having transcriptions for lectures ready, content can be learned faster, revi
 
 # Requirements
 
-* Install the required libraries using the requirements file.
+Create a python virtual environment and install the required packages:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
 **For online models**
 * Create an account on the relevant portal and save API keys in the provided .env_example file. Then rename the file to .env
