@@ -30,7 +30,7 @@ pip install -r requirements.txt
 * Create an account on the relevant portal and save API keys in the provided .env_example file. Then rename the file to .env
 
 **For vosk models**
-* Install a model from [vosk](https://alphacephei.com/vosk/models) and save it in a folder called "model"
+* Install a model from [vosk](https://alphacephei.com/vosk/models) and unpack it in a folder called "model"
 
 Set up environment variables as specified in .env_example
 Run lecture_transcriber.py with the following:
