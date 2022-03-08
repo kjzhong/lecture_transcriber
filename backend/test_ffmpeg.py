@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 
 from vosk import Model, KaldiRecognizer, SetLogLevel
 import sys
@@ -20,15 +20,14 @@ process = subprocess.Popen(['ffmpeg', '-loglevel', 'quiet', '-i',
                             sys.argv[1],
                             '-ar', str(sample_rate) , '-ac', '1', '-f', 's16le', '-'],
                             stdout=subprocess.PIPE)
-with open('file.txt', 'w') as f:
-    while True:
-        data = process.stdout.read(4000)
-        if len(data) == 0:
-            break
-        if rec.AcceptWaveform(data):
-            print(rec.Result())
-            f.write(rec.Result())
-        # else:
-        #     print(rec.PartialResult())
+
+while True:
+    data = process.stdout.read(4000)
+    if len(data) == 0:
+        break
+    if rec.AcceptWaveform(data):
+        print(rec.Result())
+    else:
+        print(rec.PartialResult())
 
 print(rec.FinalResult())
